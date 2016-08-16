@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>下拉刷新</title>
+  <style type="text/css">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      font-size: 16px;
+      font-family: "Microsoft YaHei";
+    }
+    .container{
+      position: relative;
+      top: -60px;
+      left: 0;
+    }
+    .scroll{
+      width: 100%;
+      height: 60px;
+      background-color: #efe8e8;
+      text-align: center;
+      line-height: 60px;
+    }
+    .scroll i{
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: url({{ "/img/in-post/post-scroll-to-refresh/arrow_down.png" | prepend: site.baseurl }}) center no-repeat;
+      vertical-align: middle;
+      transition: all 0.2s;
+    }
+    .scroll i.trans{
+      transform: rotate(-180deg);
+    }
+    .scroll span{
+      vertical-align: middle;
+    }
+    .content{
+      width: 100%;
+      height: 600px;
+      text-align: center;
+      line-height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="scroll">
+      <i></i>
+      <span>下拉刷新</span>
+    </div>
+    <div class="content">
+      <span>请向下滑动屏幕</span>
+    </div>
+  </div>
+  <script src="{{ "/js/jquery.min.js " | prepend: site.baseurl }}"></script>
+  <script src="{{ "/js/scrollToRefresh.js " | prepend: site.baseurl }}"></script>
+</body>
+</html>
