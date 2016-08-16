@@ -5,7 +5,7 @@ description: "我想当个老司机"
 ---
 
 {% for post in paginator.posts %}
-{% if post.layout=='post' %}
+<!-- {% if post.layout=='post' %} -->
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
         <h2 class="post-title">
@@ -25,7 +25,7 @@ description: "我想当个老司机"
     </p>
 </div>
 <hr>
-{% endif %}
+<!-- {% endif %} -->
 {% endfor %}
 
 <!-- Pager -->
