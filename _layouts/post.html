@@ -90,7 +90,7 @@ layout: default
 
                 <ul class="pager">
                     {% if page.previous.url %}
-                        {% if page.previous.layout=='post' %}
+                        {% if page.previous.layout=="post" %}
                         <li class="previous">
                             <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
                             Previous<br>
@@ -100,7 +100,7 @@ layout: default
                         {% endif %}
                     {% endif %}
                     {% if page.next.url %}
-                        {% if page.next.layout=='post' %}
+                        {% if page.next.layout=="post" %}
                         <li class="next">
                             <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
                             Next<br>
