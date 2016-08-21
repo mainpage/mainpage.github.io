@@ -239,7 +239,144 @@ module.exports = {
 
 ### 缺点和不足
 
-1.webpack是为模块化而生的，专业处理模块一百年，对于一些不符合模块规范的第三方库就有些力不从心了；
+1.webpack是为模块化而生的，专业处理模块一百年，但对于一些不符合模块规范的第三方库就有些力不从心了；
+2.webpack不暴露打包的中间过程和文件的处理细节，无法实现特殊的或定制化的需求。
+e.g:
+    * 将资源文件拷贝到输出目录
+    * 对资源文件进行一些文本补充、替换之类的额外处理
+    * 将多个文件按顺序直接合并
+    * 图片生成雪碧图
+    * 前端自动化测试
 
+其实上面提到的这些在一定程度上并不能算是webpack的缺点，因为它的定位是module bundler，专注于对模块的处理。如果想要满足这些需求，我们需要的不仅仅是一个module bundler，而是一个前端自动化构建工具，这时候就轮到gulp出场了——
 
 ## gulp
+
+> Gulp.js是一个自动化构建工具,开发者可以使用它在项目开发过程中自动执行常见任务。Gulp.js 是基于 Node.js 构建的,利用 Node.js 流的威力,你可以快速构建项目。
+
+gulp是一款前端自动化构建工具，其定位是一个 task runner，用户可以预先定义好一系列的task，由gulp来自动执行这些task。理论上gulp 可以做到几乎所有node能做到的事情，不仅仅是用来打包js等。
+gulp是一款基于流的自动化工具，它借鉴了Unix系统的管道（pipe）功能，利用node.js Stream将构建任务定义为一个个“流”，流之间通过“管道”连接，前一个流的输出即是下一个流的输入，从而将整个构建任务构造成一个“串流”。这种处理方式在思路上非常清晰自然，易于被使用者接受；更重要的是，所有的任务均在内存中进行，避免了大量的IO操作，使得gulp的构建速度很快，优于grunt等同类构建工具。
+
+`注意：`gulp定义的任务是并行执行的，如果任务之间存在依赖关系则需要进行特殊处理，详情请戳[这里](http://www.gulpjs.com.cn/docs/recipes/running-tasks-in-series/)
+
+#### gulp的基本使用
+下面我们通过一个基本的gulp文件来介绍gulp的使用方法：
+
+`gulpfile.js`
+
+```
+var gulp = require('gulp');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+
+//合并压缩混淆js
+gulp.task('minify', function(){
+    return gulp.src('src/*.js')
+        .pipe(concat('all.js'))
+        .pipe(gulp.dest('dist'))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist'));
+});
+
+// Watch Our Files
+gulp.task('watch', function() {
+    gulp.watch('src/*.js', ['minify']);
+});
+
+```
+
+上面的gulp文件定义了一个minify任务，对js文件进行合并和压缩混淆。需要注意的是，gulp本身只提供了一个平台，具体的合并、压缩混淆功能是由gulp-concat和gulp-uglify插件提供的。
+gulp的使用非常简单，只有5个API：
+ * gulp.task
+定义一个gulp任务
+ * gulp.src
+指定需要处理的源文件的路径
+ * gulp.dest
+指定处理完后文件输出的路径
+ * gulp.run
+执行指定的gulp任务
+ * gulp.watch
+用于监听文件变化，一旦修监听到修改就会触发指定的任务
+
+#### gulp常用插件
+
+ * gulp-htmlmin 压缩 HTML
+ * gulp-imagemin 压缩图片（包括SVG）
+ * gulp-clean-css 压缩 CSS
+ * gulp-uglify 压缩混淆 Javascript
+ * gulp-concat 文件合并
+ * gulp-autoprefixer CSS增加前缀
+ * gulp-rename 修改文件名称
+ * gulp-webserver 
+ * gulp-livereload 自动刷新
+ * gulp-sourcemaps 处理JavaScript时生成SourceMap
+ * gulp-jshint JavaScript 代码校验
+ * gulp-sass/gulp-less 编译sass/less文件
+ * gulp-css-spriter 生成雪碧图
+ * gulp-git 将gulp与git结合起来，自动化pull/push
+
+## gulp+webpack，天黑都不怕
+
+基于gulp和webpack各自的特性，将他们结合起来使用可以出色地完成前端工程化目标：webpack作为一个module bundler，能够处理各种模块和依赖，我们利用它对js各个功能模块进行打包；gulp是一个task runner，可以流程化一切构建任务，我们利用它定义诸如文件拷贝、文件合并、图片压缩等各类任务（也包括webpack打包任务），实现构建自动化。webpack和gulp各自完成自己最擅长的功能，让上帝的归上帝、凯撒的归凯撒，岂不美哉？
+在mini项目里，我们实践了这一方案，使用webpack进行模块打包，gulp进行文件合并压缩等：
+
+`gulpfile.js`
+
+```
+var gulp = require('gulp');
+var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
+var minifyCSS = require('gulp-clean-css');
+var webpackStream = require('webpack-stream');
+var webpackConfig = require('./webpack.config.js');
+var libRoot = 'src/javascript/lib/';
+
+gulp.task('build', ['js-index', 'js-lib', 'css-lib', 'css-index']);
+gulp.task('js-index', function () { 
+    gulp.src('src/javascript/debug/index.js')
+        .pipe(webpackStream(webpackConfig))
+        .pipe(uglify())
+        .pipe(gulp.dest('src/javascript/dist'))
+})
+gulp.task('js-lib', function () {
+    gulp.src([libRoot+'zepto.js', libRoot+'mobilebone.js', libRoot+'frozen.js'])
+        .pipe(uglify())
+        .pipe(concat('lib.js'))
+        .pipe(gulp.dest('src/javascript/dist'))
+});
+
+gulp.task('css-lib', function () {
+    gulp.src('src/css/*.css')
+        .pipe(minifyCSS())
+        .pipe(concat('lib.css'))
+        .pipe(gulp.dest('src/css/dist'))
+});
+
+gulp.task('css-index', function () {
+    gulp.src('src/css/debug/*.css')
+        .pipe(minifyCSS())
+        .pipe(gulp.dest('src/css/dist'))
+});
+```
+
+由于整个项目是一个规模较小的单页面应用，我们将所有的js业务模块打包成一个文件，定义为gulp的一个任务（使用gulp执行webpack任务，只需要加载webpackStream插件，并读入webpack配置文件即可）；同时，将项目引入的库文件单独合并压缩为lib.js，与业务代码分离；css-lib和css-index任务则将基础样式和业务样式分别打包。由于整个项目规模不大，实际上并没有用到gulp和webpack的一些高级特性，但已经充分体验到了这一方案的强大和高效。
+
+# Hybrid架构下前端资源的加载方案
+
+当前移动app开发领域主要有三种开发模式：Native、Webapp和Hybrid（Native+web)。由于灵活性方面的优势，Hybrid方式已经成为最普遍的开发方案。对于Hybrid应用而言，急需解决的一个问题就是web与native体验的不一致性。由于web应用的特性，每次进入web页面时需要由浏览器加载html、javascript等静态文件并执行，在这之前页面没有内容，会呈现白屏状态，严重影响用户体验。随着单页应用的盛行，不同页面之间的跳转不再需要刷新页面，已经可以实现媲美native的转场效果；但首屏加载时仍然不可避免地存在白屏问题。为了解决这一问题，争取实现首屏“秒出”的效果，越来越多的团队开始使用前端资源离线缓存方案。
+
+## 前端资源离线缓存
+
+1. 将前端资源离线包与native模块一起打包在app中（或者app启动时自动下载离线包缓存在用户的sd卡）
+2. 用户访问web页面时直接从本地加载前端静态资源
+3. 当前端静态资源更新时，app从服务器下载新的离线包
+
+由于mini项目中时间紧张，没有来得及实践这种方案的可行性。关于离线缓存这种方案，可以预见到的关键问题有：
+ * 离线资源何时更新？
+ * 离线资源如何进行更新？是否可以增量更新？
+ * 本地文件发出的http请求能否携带cookie信息？
+ * 如何解决ajax跨域问题？
+ * 本地化文件是否存在安全问题？
+
+这些问题，只能在以后的工作中慢慢研究和实践了。
+
