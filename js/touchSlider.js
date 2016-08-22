@@ -7,14 +7,14 @@ $(document).ready(function(){
 		slideDom: null,
 	  touchInfo: {},
 
-	  init: function(){
-	  	touchSlider.realNum = $(".view-item").length;
-	  	var firstItem = $(".view-item:first-child"),
-	  			lastItem = $(".view-item:last-child");
-	  	firstItem.clone().appendTo($(".view"));
-	  	lastItem.clone().prependTo($(".view"));
-	  	touchSlider.slideDom = $(".view")[0];
-	  	touchSlider.slideDom.addEventListener("touchstart",touchSlider);
+		init: function(){
+		  	touchSlider.realNum = $(".view-item").length;
+		  	var firstItem = $(".view-item:first-child"),
+		  			lastItem = $(".view-item:last-child");
+		  	firstItem.clone().appendTo($(".view"));
+		  	lastItem.clone().prependTo($(".view"));
+		  	touchSlider.slideDom = $(".view")[0];
+		  	touchSlider.slideDom.addEventListener("touchstart",touchSlider);
 			touchSlider.num = $(".view-item").length;
 			$(".view").css("width", touchSlider.num*100 + "%");
 			$(".view-item").css("width", 100/touchSlider.num + "%");

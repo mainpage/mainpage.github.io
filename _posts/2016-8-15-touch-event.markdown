@@ -202,6 +202,8 @@ function handleEnd(e) {
 
 到这里，我们已经完成了一个在移动设备上用手指绘制曲线的小程序。你可以打开[demo](/2016/08/13/canvas-touch/)页面，使用chrome的移动设备模拟器查看效果；或者扫描如下二维码在手机上查看。
 
+<img src="/img/in-post/post-touch-event/canvas-touch-qrcode.png" width="150px">
+
 ## 触摸事件应用
 
 在移动设备大行其道的今天，触摸已然成为人们每天使用频率最高的操作之一。在移动web领域，触摸事件有着广泛的应用，下面给出两个具体demo：
@@ -209,11 +211,12 @@ function handleEnd(e) {
 #### 下拉刷新效果
 [scroll-to-refresh demo](/2016/08/15/scroll-to-refresh/)<br/>
 移动端随处可见的下拉释放刷新功能
+<img src="/img/in-post/post-touch-event/scroll-to-refresh-qrcode.png" width="150px">
 
 #### 可滑动幻灯片效果
 [touch-slider demo](/2016/08/15/touch-slide/)<br/>
 各网站首页常见的幻灯片轮播效果
-
+<img src="/img/in-post/post-touch-event/touch-slider-qrcode.png" width="150px">
 
 
 
