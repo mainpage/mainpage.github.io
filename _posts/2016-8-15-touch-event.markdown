@@ -2,6 +2,7 @@
 layout:     post
 title:      "移动web触摸事件总结"
 subtitle:   ""
+show:       "true"
 date:       2015-08-15
 author:     "sch"
 header-img: ""

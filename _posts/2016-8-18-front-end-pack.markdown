@@ -2,6 +2,7 @@
 layout:     post
 title:      "Hybrid应用中前端资源的打包和发布"
 subtitle:   ""
+show:       "true"
 date:       2015-08-18
 author:     "sch"
 header-img: ""
@@ -317,7 +318,7 @@ gulp的使用非常简单，只有5个API：
 
 ## gulp+webpack，天黑都不怕
 
-基于gulp和webpack各自的特性，将他们结合起来使用可以出色地完成前端工程化目标：webpack作为一个module bundler，能够处理各种模块和依赖，我们利用它对js各个功能模块进行打包；gulp是一个task runner，可以流程化一切构建任务，我们利用它定义诸如文件拷贝、文件合并、图片压缩等各类任务（也包括webpack打包任务），实现构建自动化。webpack和gulp各自完成自己最擅长的功能，让上帝的归上帝、凯撒的归凯撒，岂不美哉？
+基于gulp和webpack各自的特性，将他们结合起来使用可以出色地完成前端工程化目标：webpack作为一个module bundler，能够处理各种模块和依赖，我们利用它对js各个功能模块进行打包；gulp是一个task runner，可以流程化一切构建任务，我们利用它定义诸如文件拷贝、文件合并、图片压缩等各类任务（也包括webpack打包任务），实现构建自动化。这样，webpack和gulp可以各自完成自己最擅长的任务。
 在mini项目里，我们实践了这一方案，使用webpack进行模块打包，gulp进行文件合并压缩等：
 
 `gulpfile.js`

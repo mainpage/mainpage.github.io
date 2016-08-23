@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href={{ "/css/reveal/reveal.css" | prepend: site.baseurl }}>
+    <link rel="stylesheet" href={{ "/css/reveal/theme/serif.css" | prepend: site.baseurl }}>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href={{ "/css/reveal/zenburn.css" | prepend: site.baseurl }}>
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown>
+            <script type="text/template">
+               #移动端web单页框架简单调研
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+               ##移动端开发模式
+
+               Native、Webapp和Hybrid
+
+               ![](/img/in-post/post-h5-spa-framwork/webapp.png)
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+               ## 单页应用(SPA)
+               对于移动端web应用来说，为了达到媲美原生应用的效果，单页架构几乎是不可或缺的。
+               传统的多页面的应用在页面跳转时需要从服务器加载html并重新渲染，会出现明显的“白屏”现象，对于一个移动端“应用”来说这是不可忍受的。
+               因此，大部分移动端框架选择或支持了单页的开发方式。
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 单页应用的优势
+               * 页面无刷新切换
+               * 页面切换速度快，体验流畅
+               * 动画转场效果
+               * 前后端分离
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 单页应用必须具备的功能
+
+               * 能够管理页面状态的路由系统
+               * 子页面调度模块
+               * 数据管理模块
+               * 页面切换的转场效果
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 具有代表性的移动端单页框架
+
+               * Angular.js
+               * React Native
+               * Vue.js
+               * MobileBone.js
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## Angular.js
+
+               * 大而全的MVC框架
+               * $routeProvider提供前端路由支持
+               * controller实现模块调度
+               * ng-view进行局部渲染
+               * ngAnimate创建动画效果
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## demo
+
+              `html`
+
+              ```
+              <body ng-app="myApp">
+                  <div class="header">header</div>
+                  <div ng-view></div>
+                  <div class="footer">footer</span>
+              </body>
+              ```
+
+              `js`
+
+              ```
+              angular.module('myApp', ['ngRoute'])
+              .config(function($routeProvider) {
+                $routeProvider
+                  .when('/', {
+                    templateUrl: 'views/main.html',
+                    controller: 'MainCtrl'
+                  })
+                  .when('/detail/:id', {
+                    templateUrl: 'views/detail.html',
+                    controller: 'DayCtrl'
+                  })
+              })
+              ```
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 优点
+
+               * 功能完善，提供了一整套解决方案
+               * 数据绑定、依赖注入、单页路由、自定义指令
+               * MVC架构，分层清晰
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 缺点
+               * 框架过重，对移动端而言体积过大
+               * “脏检查”效率低下
+               * 没有明确的组件化概念
+               * 动画转场效果实现较为困难
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## React Native
+
+               * 基于React.js的组件化机制
+               * js编写的React组件渲染为原生组件 
+               * Navigator组件实现页面导航和路由
+               * 路由模块通过实例化不同组件实现模块调度
+               * Flux架构的数据和状态管理
+               * 基于原生UI的动画效果
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## demo
+
+              ```
+              // 主模块
+              class MainView extends Component {
+                // ...
+                render() {
+                  return (
+                      <Navigator
+                          //样式
+                          style={flex:1}
+                          //初始化路由
+                          initialRoute={component: Home}
+                          //配置场景动画
+                          configureScene={this.configureScene}
+                          //根据路由渲染组件
+                          renderScene={this.renderScene}
+                      />
+                  );
+                }
+              }
+
+              //renderScene方法
+              renderScene(route, navigator) {
+                  if (route.name == 'Home') {
+                    return <Home navigator={navigator} {...route.passProps}/>
+                  } else if (route.name == 'Detail') {
+                    return <Detail navigator={navigator} {...route.passProps}/>
+                  }
+                  ...
+              }
+              ```
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 优点
+
+              * 完善的组件化机制
+              * 基于Virtual Dom的数据绑定效率很高
+              * javascript组件最终渲染为原生组件
+              * 可以达到接近原生应用的体验
+              * learn once，write anywhere
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 缺点
+
+              * 依赖原生组件暴露出来的组件和方法
+              * 一定程度上牺牲了web的灵活性和扩展性
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## Vue.js
+
+              * 新兴的轻量级MVVM框架
+              * vue-router提供路由支持
+              * 路由模块通过实例化不同组件实现模块调度
+              * Flux架构的数据和状态管理
+              * 基于transition特性的CSS/动画过渡系统
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## demo
+
+              `demo.vue`
+
+              ```
+              //模板
+              <template>
+                  <nav>
+                    <li><a v-link="/home">首页</a></li>
+                    <li><a v-link="/detail">详情</a></li>
+                  </nav>
+                  <div class="container">
+                      <router-view></router-view>
+                  </div>
+                </div>
+              </template>
+              <script>
+                  ...
+                  //路由
+                  const router = new VueRouter()
+                  router.map({
+                    '/home': {
+                      component: Home
+                    },
+                    '/detail': {
+                      component: Detail
+                    }
+                  })
+                  router.redirect({
+                    '*': '/home'
+                  })
+              ```
+              </script>
+
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 优点
+
+              * 完善的组件化机制
+              * 轻量，~24kb min+gzip
+              * 高效，基于defineProperty的数据绑定
+              * 快速，异步批量DOM更新
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 缺点
+
+              * 新兴框架，资料较少
+              * 社区规模较小，影响力有限
+              * 框架不够成熟
+            </script>
+        </section>
+      </div>
+    </div>
+
+    <script src="{{ "/js/reveal/head.min.js " | prepend: site.baseurl }}"></script>
+    <script src="{{ "/js/reveal/reveal.js" | prepend: site.baseurl }}"></script>
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '{{ "/js/reveal/plugin/markdown/marked.js " | prepend: site.baseurl }}' },
+          { src: '{{ "/js/reveal/plugin/markdown/markdown.js " | prepend: site.baseurl }}' }
+        ]
+      });
+    </script>
+  </body>
+</html>

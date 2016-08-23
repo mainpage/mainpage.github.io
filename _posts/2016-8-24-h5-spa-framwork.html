@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href={{ "/css/reveal/reveal.css" | prepend: site.baseurl }}>
+    <link rel="stylesheet" href={{ "/css/reveal/black.css" | prepend: site.baseurl }}>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href={{ "/css/reveal/zenburn.css" | prepend: site.baseurl }}>
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown>
+            <script type="text/template">
+               #移动端web单页框架简单调研
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+               ##移动端开发模式
+
+               Native、Webapp和Hybrid
+
+               ![](/img/in-post/post-h5-spa-framwork/webapp.png)
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+               ## 单页应用(SPA)
+               对于移动端web应用来说，为了达到媲美原生应用的效果，单页架构几乎是不可或缺的。
+               传统的多页面的应用在页面跳转时需要从服务器加载html并重新渲染，会出现明显的“白屏”现象，对于一个移动端“应用”来说这是不可忍受的。因此，大部分移动端框架选择或支持了单页的开发方式。
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 单页应用的优势
+               * 页面无刷新切换
+               * 页面切换速度快，体验流畅
+               * 动画转场效果
+               * 前后端分离
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## 单页应用必须具备的功能
+
+               * 能够管理页面状态的路由系统
+               * 子页面调度模块
+               * 数据管理模块
+               * 页面切换的转场效果
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              # 具有代表性的移动端单页框架
+
+               * Angular.js
+               * React Native
+               * Vue.js
+               * MobileBone.js
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## Angular.js
+
+               * 大而全的MVC框架
+               * $routeProvider提供前端路由支持
+               * controller实现模块调度
+               * ng-view进行局部渲染
+               * ngAnimate创建动画效果
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+              ## demo
+
+              `html`
+
+              ```
+              <body ng-app="myApp">
+                  <div class="header">header</div>
+                  <div ng-view></div>
+                  <div class="footer">footer</span>
+              </body>
+              ```
+
+              `js`
+
+              ```
+              angular.module('myApp', ['ngRoute'])
+              .config(function($routeProvider) {
+                $routeProvider
+                  .when('/', {
+                    templateUrl: 'views/main.html',
+                    controller: 'MainCtrl'
+                  })
+                  .when('/detail/:id', {
+                    templateUrl: 'views/detail.html',
+                    controller: 'DayCtrl'
+                  })
+              })
+              ```
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+               #移动端web单页框架简单调研
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+               #移动端web单页框架简单调研
+            </script>
+        </section>
+      </div>
+    </div>
+
+    <script src="{{ "/js/reveal/head.min.js " | prepend: site.baseurl }}"></script>
+    <script src="{{ "/js/reveal/reveal.js" | prepend: site.baseurl }}"></script>
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '{{ "/js/reveal/plugin/markdown/marked.js " | prepend: site.baseurl }}' },
+          { src: '{{ "/js/reveal/plugin/markdown/markdown.js " | prepend: site.baseurl }}' }
+        ]
+      });
+    </script>
+  </body>
+</html>

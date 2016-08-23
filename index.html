@@ -1,11 +1,11 @@
 ---
 layout: page
 title: Sch's Blog
-description: "我想当个老司机"
+description: "你问我要去向何方，我指着大概的方向"
 ---
 
 {% for post in paginator.posts %}
-{% if post.layout == "post" %}
+{% if post.show=="true" %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
         <h2 class="post-title">
