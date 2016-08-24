@@ -218,3 +218,30 @@ renderScene(route, navigator) {
 * 新兴框架，资料较少
 * 社区规模较小，影响力有限
 * 框架不够成熟
+
+## MobileBone.js
+
+* 轻量webapp单页切换骨架
+* 基于hash、H5 history API 和锚点定位的路由
+* 通过子页面的id匹配对应路由
+* 通过子页面进入和离开时的回调来调度模块
+* 可定制的动画转场效果
+
+## demo
+
+作者提供的demos：
+[http://rawgit.com/zhangxinxu/mobilebone/master/test/index.html](http://rawgit.com/zhangxinxu/mobilebone/master/test/index.html)
+
+## 优点和缺点：
+
+优点：
+
+* 轻量级，插件级别的框架
+* 可智能识别页面切换方向
+* 动画效果可自定义
+
+缺点
+
+* 页面切换不支持传参
+* 仅提供了切换骨架，应用的管理完全需要手动
+* 代码组织不够优雅
