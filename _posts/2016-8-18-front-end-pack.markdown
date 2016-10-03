@@ -139,7 +139,7 @@ module.exports = {
 };
 ```
 
-page1、page2两个模块的公共代码会被提取到commons.js，我们需要在page1.html引入commons.js和page1.bundler.js，在page2.html引入commons.js和page2.bundler.js。
+page1、page2两个模块的公共代码会被提取到`commons.js`，我们需要在page1.html引入`commons.js`和`page1.bundler.js`，在page2.html引入`commons.js`和`page2.bundler.js`。
 
 #### 样式文件单独打包
 
@@ -288,6 +288,7 @@ gulp.task('watch', function() {
 
 上面的gulp文件定义了一个minify任务，对js文件进行合并和压缩混淆。需要注意的是，gulp本身只提供了一个平台，具体的合并、压缩混淆功能是由gulp-concat和gulp-uglify插件提供的。
 gulp的使用非常简单，只有5个API：
+
  * gulp.task
 定义一个gulp任务
  * gulp.src
@@ -373,6 +374,7 @@ gulp.task('css-index', function () {
 3. 当前端静态资源更新时，app从服务器下载新的离线包
 
 由于mini项目中时间紧张，没有来得及实践这种方案的可行性。关于离线缓存这种方案，可以预见到的关键问题有：
+
  * 离线资源何时更新？
  * 离线资源如何进行更新？是否可以增量更新？
  * 本地文件发出的http请求能否携带cookie信息？
