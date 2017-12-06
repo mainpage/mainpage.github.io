@@ -71,3 +71,7 @@ tags:
 vue.js官方说法：
 >在有限程度上，React + Mobx 也可以被认为是更繁琐的 Vue
 
+
+# rxjs
+
+
