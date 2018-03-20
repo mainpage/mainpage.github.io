@@ -27,7 +27,7 @@ webpack.config.js
 # demos
 > webpack4刚刚发布，还没来得及看，以下demo仍然基于webpack3
 
-下面我们通过一系列demo一步步学习和实践webpack的基本使用。
+下面我们通过[一系列demo](https://github.com/mainpage/learn-webapck-step-by-step)一步步学习和实践webpack的基本使用。
 > 如何使用：切换到各个demo目录，使用`npm install`安装依赖，执行`npm run build`进行构建；部分demo（demo07以后）可以执行`npm run start`启动dev-server，在浏览器中查看应用
 
 ### demo01：入口和输出
