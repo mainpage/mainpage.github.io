@@ -9,7 +9,7 @@ header-img: ""
 catalog: true
 tags:
     - 前端开发
-    - touch
+    - 移动端
 ---
 
 ## 触摸事件TouchEvent

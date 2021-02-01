@@ -10,8 +10,7 @@ header-img: ""
 catalog: true
 tags:
     - 前端开发
-    - 移动应用
-    - SPA
+    - 移动端
 ---
 
 

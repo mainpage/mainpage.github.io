@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "单页应用状态管理方案（慢慢写）"
+title:      "单页应用状态管理方案"
 subtitle:   ""
 show:       "true"
 date:       2017-11-23
@@ -9,7 +9,7 @@ header-img: ""
 catalog: true
 tags:
     - 前端开发
-    - 状态管理方案
+    - 状态管理
 ---
 
 
