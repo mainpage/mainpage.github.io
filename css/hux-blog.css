@@ -1,8 +1,8 @@
-@media (min-width: 1900px) {
-  .container {
-    width: 1600px;
-  }
-}
+/*!
+ * Hux Blog v1.6.0 (http://huxpro.github.io)
+ * Copyright 2021 Hux <huxpro@gmail.com>
+ */
+
 @media (min-width: 1200px) {
   .post-container,
   .sidebar-container {
@@ -279,6 +279,9 @@ pre code {
   .post-container ol {
     padding-left: 20px;
   }
+}
+.post-container ul {
+  padding-left: 10px;
 }
 .post-container ol ol,
 .post-container ol ul,
